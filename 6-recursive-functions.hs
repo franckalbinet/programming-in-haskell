@@ -122,4 +122,28 @@ replicate_my n x = x : replicate_my (n-1) x
 (!!!) (x:xs) 0 = x
 (!!!) (x:xs) n = (!!!) xs (n-1)
 
+-- e
+elem_my :: Eq a => a -> [a] -> Bool
+elem_my _ [] = False
+elem_my x (y:ys) 
+  | x == y = True
+  | otherwise = elem_my x ys
 
+-- Exercise 7
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] [] = []
+merge [] ys = ys
+merge xs [] = xs
+merge (x:xs) (y:ys) 
+  | x < y = x : merge xs (y:ys)
+  | otherwise = y : merge (x:xs) ys
+
+-- Exercise 8
+halve :: [a] -> ([a],[a])
+halve xs = (take len xs, drop len xs)
+    where len = length xs `div` 2
+
+msort :: Ord a => [a] -> [a]
+msort [] = []
+msort [x] = [x]
+msort xs = merge (msort (fst (halve xs))) (msort (snd (halve xs)))
