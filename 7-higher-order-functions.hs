@@ -26,10 +26,10 @@ filter_r p (x:xs)
   | p x = x : filter_r p xs
   | otherwise = filter_r p xs
 
--- The foldr function
+-- 7.3 The foldr function
 -- Foldr versions of sum, product, or, and
-sum_fold :: Num a => [a] -> a
-sum_fold = foldr (+) 0
+sum_foldr :: Num a => [a] -> a
+sum_foldr = foldr (+) 0
 
 product_fold :: Num a => [a] -> a
 product_fold = foldr (*) 1
@@ -40,12 +40,28 @@ or_fold = foldr (||) False
 and_fold :: [Bool] -> Bool
 and_fold = foldr (&&) True
 
-fold_r_my :: (a -> b -> b) -> b -> [a] -> b
-fold_r_my f v [] = v
-fold_r_my f v (x:xs) = f x (fold_r_my f v xs)
+foldr_my :: (a -> b -> b) -> b -> [a] -> b
+foldr_my f v [] = v
+foldr_my f v (x:xs) = f x (foldr_my f v xs)
 
 length_my :: [a] -> Int
 length_my = foldr (\_ n -> 1+n) 0 
 
 reverse_my :: [a] -> [a]
 reverse_my = foldr (\x xs -> xs ++ [x]) []
+
+-- 7.4 The foldl function
+sum_my :: Num a => [a] -> a
+sum_my = sum' 0
+    where 
+        sum' v [] = v
+        sum' v (x:xs) = sum' (v+x) xs
+
+-- Functions previously defined using foldr can be redefined. 
+-- Ex. of sum:
+sum_foldl :: Num a => [a] -> a
+sum_foldl = foldl (+) 0
+
+foldl_my :: (a -> b -> a) -> a -> [b] -> a
+foldl_my f v [] = v
+foldl_my f v (x:xs)  = foldl f (f v x) xs
