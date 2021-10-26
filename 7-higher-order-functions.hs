@@ -1,3 +1,7 @@
+-- Imports
+import Data.Char
+
+
 -- 7.1 Basic concepts
 add :: Int -> Int -> Int
 add x y = x + y
@@ -65,3 +69,19 @@ sum_foldl = foldl (+) 0
 foldl_my :: (a -> b -> a) -> a -> [b] -> a
 foldl_my f v [] = v
 foldl_my f v (x:xs)  = foldl f (f v x) xs
+
+-- 7.5 The composition operator
+
+-- 7.6 Binary transmitter extended example
+type Bit = Int
+
+-- Naîve implementation
+bin2int_naive :: [Bit] -> Int
+bin2int_naive bits = sum [w*b | (w,b) <- zip weights bits]
+    where weights = iterate (*2) 1
+
+-- Using foldr
+bin2int :: [Bit] -> Int
+bin2int = foldr (\x y -> x + 2*y) 0
+
+
