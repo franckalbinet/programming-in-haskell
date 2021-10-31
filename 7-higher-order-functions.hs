@@ -148,3 +148,11 @@ winner' bs = case rank (rmempty bs) of
                [c] -> c
                (c:cs) -> winner' (elim c bs)
 
+-- Exercises
+-- Exercise 1
+ex1 :: (a -> a) -> (a -> Bool) -> [a] -> [a]
+ex1 f p xs = [f x | x <- xs, p x]
+
+ex1' :: (a -> a) -> (a -> Bool) -> [a] -> [a]
+ex1' f p xs = (map f . filter p) xs
+
