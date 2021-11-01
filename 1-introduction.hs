@@ -1,4 +1,3 @@
-
 -- Quick sort sorting algorithm
 qsort [] = []
 qsort (x:xs) = qsort smaller ++ [x] ++ qsort larger
@@ -8,8 +7,8 @@ qsort (x:xs) = qsort smaller ++ [x] ++ qsort larger
                 
 
 -- Exercise 2
-product2 [] = 0
-product2 (n:ns) = n * product ns
+product' [] = 1
+product' (n:ns) = n * product' ns
 
 -- Exercise 4
 qsort_r [] = []
