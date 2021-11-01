@@ -156,3 +156,10 @@ ex1 f p xs = [f x | x <- xs, p x]
 ex1' :: (a -> a) -> (a -> Bool) -> [a] -> [a]
 ex1' f p xs = (map f . filter p) xs
 
+-- Exercice 2
+all' :: (a -> Bool) -> [a] -> Bool
+-- Using foldr
+--all' p xs = (foldr (&&) True) (map p xs)
+-- Using composition operator
+all' p  = and . map p
+
