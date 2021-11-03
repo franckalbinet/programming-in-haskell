@@ -185,5 +185,10 @@ map' f = foldr (\x xs -> f x:xs) []
 filter' :: (a -> Bool) -> [a] -> [a]
 filter' p = foldr (\x xs -> if p x then x:xs else xs) []
 
+-- Exercise 4
+dec2int :: [Int] -> Int
+dec2int = foldl (\acc x -> 10*acc + x) 0
+
+
 
 
