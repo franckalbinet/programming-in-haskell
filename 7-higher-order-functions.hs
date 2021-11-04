@@ -2,7 +2,6 @@
 import Data.Char
 import Data.List
 
-
 -- 7.1 Basic concepts
 add :: Int -> Int -> Int
 add x y = x + y
@@ -186,9 +185,17 @@ filter' :: (a -> Bool) -> [a] -> [a]
 filter' p = foldr (\x xs -> if p x then x:xs else xs) []
 
 -- Exercise 4
+-- Test [2,3,4,5] -> 2345
 dec2int :: [Int] -> Int
 dec2int = foldl (\acc x -> 10*acc + x) 0
 
+-- Exercice 5
+-- Implement curry and uncurry functions
+curry' :: ((a, b) -> c) -> a -> b -> c
+curry' f = \x y -> f (x,y)
+
+uncurry' :: (a -> b -> c) -> (a, b) -> c
+uncurry' f = \(x, y) -> f x y
 
 
 
