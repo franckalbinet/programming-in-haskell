@@ -3,14 +3,14 @@ import Data.Char
 -----------------------------
 -- Chapter 5.1: basic concepts
 -----------------------------
-concat_my :: [[a]] -> [a]
-concat_my xxs = [x | xs <- xxs, x <- xs]
+concat' :: [[a]] -> [a]
+concat' xxs = [x | xs <- xxs, x <- xs]
 
 firsts :: [(a,b)] -> [a]
 firsts ps = [x | (x,_) <- ps]
 
-length_my :: [a] -> Int
-length_my xs = sum [1 | _ <- xs]
+length' :: [a] -> Int
+length' xs = sum [1 | _ <- xs]
 
 ----------------------
 -- Chapter 5.2: Guards
@@ -109,8 +109,8 @@ square :: Int -> [(Int, Int)]
 square n = [(x,y) | x <- [0..n], y <- [0..n], x /= y] 
 
 -- Exercise 4
-replicate_my :: Int -> a -> [a]
-replicate_my n a = [a | x <- [0..n]]
+replicate' :: Int -> a -> [a]
+replicate' n a = [a | x <- [0..n]]
 
 -- Exercise 5
 pyths :: Int -> [(Int,Int,Int)]

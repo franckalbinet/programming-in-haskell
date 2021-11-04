@@ -11,17 +11,17 @@ m *** 0 = 0
 m *** n = m + (m *** (n-1))
 
 -- 6.2 Recursion on lists
-product_my :: Num a => [a] -> a
-product_my [] = 1
-product_my (n:ns) = n * product_my ns
+product' :: Num a => [a] -> a
+product' [] = 1
+product' (n:ns) = n * product' ns
 
-length_my :: [a] -> Int
-length_my [] = 0
-length_my (_:xs) = 1 + length_my xs
+length' :: [a] -> Int
+length' [] = 0
+length' (_:xs) = 1 + length' xs
 
-reverse_my :: [a] -> [a]
-reverse_my [] = []
-reverse_my (x:xs) = reverse_my xs ++ [x] 
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (x:xs) = reverse' xs ++ [x] 
 
 insert :: Ord a => a -> [a] -> [a]
 insert x [] = [x]
@@ -35,15 +35,15 @@ isort [] = []
 isort (x:xs) = insert x (isort xs)
 
 -- 6.3 Multiple arguments
-zip_my :: [a] -> [b] -> [(a,b)]
-zip_my [] _ = []
-zip_my _ [] = []
-zip_my (x:xs) (y:ys) = (x,y) : zip_my xs ys 
+zip' :: [a] -> [b] -> [(a,b)]
+zip' [] _ = []
+zip' _ [] = []
+zip' (x:xs) (y:ys) = (x,y) : zip' xs ys 
 
-drop_my :: Int -> [a] -> [a]
-drop_my 0 xs = xs
-drop_my _ [] = []
-drop_my n (x:xs) = drop_my (n-1) xs 
+drop' :: Int -> [a] -> [a]
+drop' 0 xs = xs
+drop' _ [] = []
+drop' n (x:xs) = drop' (n-1) xs 
 
 -- 6.4: Multiple recursion
 fib :: Int -> Int
@@ -54,13 +54,13 @@ fib n = fib (n-2) + fib (n-1)
 -- For quicksort example of multiple recursion see 1-chapter.hs
 
 -- 6.5 Mutual recursion
-even_my :: Int -> Bool
-even_my 0 = True
-even_my n = odd (n-1)
+even' :: Int -> Bool
+even' 0 = True
+even' n = odd (n-1)
 
-odd_my :: Int -> Bool
-odd_my 0 = False
-odd_my n = even (n-1)
+odd' :: Int -> Bool
+odd' 0 = False
+odd' n = even (n-1)
 
 evens :: [a] -> [a]
 evens [] = []
@@ -71,9 +71,9 @@ odds [] = []
 odds (_:xs) = evens xs
 
 -- 6.6 Advice on recursion
-init_my :: [a] -> [a]
-init_my [_] = []
-init_my (x:xs) = x : init_my xs
+init' :: [a] -> [a]
+init' [_] = []
+init' (x:xs) = x : init' xs
 
 
 -- Exercises
@@ -101,21 +101,21 @@ euclid x y
 
 -- Exercise 6
 -- a
-and_my :: [Bool] -> Bool
-and_my [x] = x
-and_my (x:xs)
+and' :: [Bool] -> Bool
+and' [x] = x
+and' (x:xs)
   | x == False = False
-  | otherwise = and_my xs
+  | otherwise = and' xs
 
 -- b
-concat_my :: [[a]] -> [a]
-concat_my [] = []
-concat_my (x:xs) = x!!0 : concat_my xs
+concat' :: [[a]] -> [a]
+concat' [] = []
+concat' (x:xs) = x!!0 : concat' xs
 
 -- c
-replicate_my :: Int -> a -> [a]
-replicate_my 1 x = [x]
-replicate_my n x = x : replicate_my (n-1) x
+replicate' :: Int -> a -> [a]
+replicate' 1 x = [x]
+replicate' n x = x : replicate' (n-1) x
 
 -- d
 (!!!) :: [a] -> Int -> a
@@ -123,11 +123,11 @@ replicate_my n x = x : replicate_my (n-1) x
 (!!!) (x:xs) n = (!!!) xs (n-1)
 
 -- e
-elem_my :: Eq a => a -> [a] -> Bool
-elem_my _ [] = False
-elem_my x (y:ys) 
+elem' :: Eq a => a -> [a] -> Bool
+elem' _ [] = False
+elem' x (y:ys) 
   | x == y = True
-  | otherwise = elem_my x ys
+  | otherwise = elem' x ys
 
 -- Exercise 7
 merge :: Ord a => [a] -> [a] -> [a]

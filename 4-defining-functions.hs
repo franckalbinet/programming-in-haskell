@@ -1,6 +1,7 @@
 -- Chapter 4.3 - Guarded equations
-abs_bis n | n >= 0    = n
-          | otherwise = -n
+abs' n 
+  | n >= 0    = n
+  | otherwise = -n
 
 -- Chapter 4.4 - Pattern matching 
 
