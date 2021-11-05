@@ -215,5 +215,35 @@ map_unfold f = unfold null (f . head) (tail)
 iterate' :: (a -> a) -> a -> [a]
 iterate' f = unfold (\_ -> False) id f
 
+-- Exercise 7
+parityBit :: [Bit] -> Int
+parityBit xs = 1 - sum xs `mod` 2
+
+appendParity :: [Bit] -> [Bit]
+appendParity xs = xs ++ [parityBit xs]
+
+encode' :: String -> [Bit]
+encode' = concat . map (appendParity . make8 . int2bin . ord)
+
+chop :: Int -> [Bit] -> [[Bit]]
+chop _ [] = []
+chop n bits = take n bits : chop n (drop n bits)
+
+chop9 = chop 9
+
+dropParity ::  [Bit] -> [Bit]
+dropParity = init 
+
+checkParity :: [Bit] -> [Bit]
+checkParity xs 
+  | (parityBit . dropParity) xs == last xs = dropParity xs
+  | otherwise                              = error "Faulty communication"
+
+decode' :: [Bit] -> String
+decode' = map (chr . bin2int . checkParity) . chop9
+
+channel_faulty :: [Bit] -> [Bit]
+channel_faulty xs = tail xs 
+
 
 
