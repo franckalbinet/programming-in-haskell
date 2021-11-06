@@ -242,8 +242,21 @@ checkParity xs
 decode' :: [Bit] -> String
 decode' = map (chr . bin2int . checkParity) . chop9
 
+-- Exercise 8
 channel_faulty :: [Bit] -> [Bit]
 channel_faulty xs = tail xs 
 
+-- Exercise 9
+altMap :: (a -> a) -> (a -> a) -> [a] -> [a]
+altMap _ _ [] = [] 
+altMap f1 f2 (x:xs) = f1 x : altMap f2 f1 xs 
 
+-- Exercise 10
+luhnDouble :: Int -> Int
+luhnDouble n 
+  | 2*n < 9 = 2*n
+  | otherwise = mod (2*n) 9
+
+luhn :: [Int] -> Bool
+luhn digits = mod (sum (altMap luhnDouble id digits)) 10 == 0
 
