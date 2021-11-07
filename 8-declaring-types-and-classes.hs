@@ -19,7 +19,8 @@ find k t = head [v | (k',v) <- t, k' == k]
 
 -- data Bool = False | True
 
-data Move = North | South | East | West deriving Show    
+data Move = North | South | East | West 
+    deriving Show    
 
 move :: Move -> Pos -> Pos
 move North (x,y) = (x,y+1)
@@ -59,4 +60,30 @@ safehead [] = Nothing
 safehead xs = Just (head xs)
 
 -- 8.3 Newtype declarations
+-- newtype Nat = N Int
 
+-- 8.4 Recursive types
+data Nat = Zero | Succ Nat 
+    deriving Show
+
+nat2int :: Nat -> Int
+nat2int Zero = 0
+nat2int (Succ n) = 1 + nat2int n
+
+int2nat :: Int -> Nat
+int2nat 0 = Zero
+int2nat n = Succ (int2nat (n-1))
+
+-- add :: Nat -> Nat -> Nat
+-- add m n = int2nat (nat2int m + nat2int n)
+-- or using recursion
+add :: Nat -> Nat -> Nat
+add Zero n = n
+add (Succ n) m = Succ (add m n)
+
+data List a = Nil | Cons a (List a)
+    deriving Show
+
+len :: List a -> Int
+len Nil = 0
+len (Cons _ xs) = 1 + len xs
