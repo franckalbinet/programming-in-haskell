@@ -87,3 +87,49 @@ data List a = Nil | Cons a (List a)
 len :: List a -> Int
 len Nil = 0
 len (Cons _ xs) = 1 + len xs
+
+-- Binary tree
+data Tree a = Leaf a | Node (Tree a) a (Tree a)
+    deriving Show
+
+-- Example of tree
+t :: Tree Int
+t = Node (Node (Leaf 1) 3 (Leaf 4)) 5
+         (Node (Leaf 6) 7 (Leaf 9))
+
+-- May traverse the entire tree (in the worst case)
+occurs :: Eq a => a -> Tree a -> Bool
+occurs x (Leaf y)     = x == y
+occurs x (Node l y r) = x == y || occurs x l || occurs x r
+
+flatten :: Tree a -> [a]
+flatten (Leaf x) = [x]
+flatten (Node l x r) = flatten l ++ [x] ++ flatten r
+
+-- If applying flatten to a tree gives a sorted list it is called a "Search tree"
+-- In such case: occurs could be refactored:
+occurs' :: Ord a => a -> Tree a -> Bool
+occurs' x (Leaf y) = x == y
+occurs' x (Node l y r) 
+  | x == y         = True
+  | x < y          = occurs x l
+  | otherwise      = occurs x r
+
+-- Note that trees in computing come in many different forms:
+-- data only on their leaves
+-- data Tree a = Leaf a | Node (Tree a) (Tree b)
+
+-- data only in their nodes
+-- data Tree a = Leaf | Node (Tree a) a (Tree a)
+
+-- data of different types in ther leaves and nodes
+-- data Tree a b = Leaf a | Node (Tree a b) b (Tree a b)
+
+-- have a list of subtrees
+-- data Tree a = Node a [Tree a]
+
+-- 8.5 Class and instance declarations
+
+
+
+
