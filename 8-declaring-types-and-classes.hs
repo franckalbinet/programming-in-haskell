@@ -129,7 +129,14 @@ occurs' x (Node l y r)
 -- data Tree a = Node a [Tree a]
 
 -- 8.5 Class and instance declarations
+-- Recall that:
+--   - a `type` is a collection of values and that 
+--   - a `class` is a collection of types that support certain overloaded operations called methods
 
-
-
+-- 8.6 Tautology checker (extended example)
+data Prop = Const Bool
+          | Var Char
+          | Not Prop
+          | And Prop Prop
+          | Imply Prop Prop
 
