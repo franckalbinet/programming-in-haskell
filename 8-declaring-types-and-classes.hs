@@ -139,4 +139,46 @@ data Prop = Const Bool
           | Not Prop
           | And Prop Prop
           | Imply Prop Prop
+          deriving Show
+
+-- Examples of logical propositions
+p1 :: Prop
+p1 = And (Var 'A') (Not (Var 'A'))
+
+p2 :: Prop
+p2 = Imply (And (Var 'A') (Var 'B')) (Var 'A')
+
+p3 :: Prop
+p3 = Imply (Var 'A') (And (Var 'A') (Var 'B'))
+
+p4 :: Prop
+p4 = Imply (And (Var 'A') (Imply (Var 'A') (Var 'B'))) (Var 'B')
+
+-- Var substitution rules
+-- `Assoc` type is defined above as a lookup table
+type Subst = Assoc Char Bool
+
+-- Example
+substRuleExample:: Subst
+substRuleExample = [('A',False),('B',True)]
+
+-- Evaluation
+eval :: Subst -> Prop -> Bool
+eval _ (Const b)   = b
+eval s (Var x)     = find x s
+eval s (Not p)     = not (eval s p)
+eval s (And p q)   = eval s p && eval s q
+eval s (Imply p q) = eval s p <= eval s q
+
+-- Returns all variables in a proposition
+vars :: Prop -> [Char]
+vars (Const _)   = []
+vars (Var x)     =  [x]
+vars (Not p)     = vars p
+vars (And p q)   = vars p ++ vars q
+vars (Imply p q) = vars p ++ vars q
+
+
+
+
 
