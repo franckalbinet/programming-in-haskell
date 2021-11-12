@@ -199,6 +199,17 @@ bools n = map (False:) bss ++ map (True:) bss
     where bss = bools (n-1)
 
 
+rmdups :: Eq a => [a] -> [a]
+rmdups [] = []
+rmdups (x:xs) = x : filter (/= x) (rmdups xs)
+
+substs :: Prop -> [Subst]
+substs p = map (zip vs) (bools (length vs))
+    where vs = rmdups (vars p)
+
+isTaut :: Prop -> Bool
+isTaut p = and [eval s p | s <- substs p]
+
 
 
 
