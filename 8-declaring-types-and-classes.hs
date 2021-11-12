@@ -210,6 +210,27 @@ substs p = map (zip vs) (bools (length vs))
 isTaut :: Prop -> Bool
 isTaut p = and [eval s p | s <- substs p]
 
+-- 8.7 Abstract machine (extended example)
+data Expr = Val Int | Add Expr Expr
+
+value :: Expr -> Int
+value (Val n) = n
+value (Add x y) = value x + value y
+
+-- Below eval is determined by Haskell
+-- Howeve such control information can be made explicit
+-- creating our own "Abstract Machine"
+
+-- Control stack
+type Cont = [Op]
+
+data Op = EVAL Expr | ADD Int
+
+eval :: Expr -> Cont -> Int
+eval (Val n) c   = exec c n
+eval (Add x y) c = eval x (EVAL y : c)
+
+
 
 
 
