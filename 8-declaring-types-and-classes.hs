@@ -238,3 +238,13 @@ exec (ADD n : c)  m = exec c (n+m)
 value' :: Expr -> Int
 value' e = eval' e []
 
+-- Exercises
+-- Exercise 1
+mult :: Nat -> Nat -> Nat
+mult Zero n        = Zero
+mult (Succ m) n    = add n (mult m n) 
+
+-- Exercise 2
+
+
+
