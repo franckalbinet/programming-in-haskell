@@ -245,6 +245,12 @@ mult Zero n        = Zero
 mult (Succ m) n    = add n (mult m n) 
 
 -- Exercise 2
-
+-- Requires only one comparison (previous version may requires two)
+occursAlt :: Ord a => a -> Tree a -> Bool
+occursAlt x (Leaf y)     = x == y
+occursAlt x (Node l y r) = case (compare x y) of
+                             LT -> occursAlt x l
+                             EQ -> True
+                             GT -> occursAlt x r
 
 
