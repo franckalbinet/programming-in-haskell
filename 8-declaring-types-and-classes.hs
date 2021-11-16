@@ -254,3 +254,33 @@ occursAlt x (Node l y r) = case (compare x y) of
                              GT -> occursAlt x r
 
 
+-- Exercise 3
+data Tree' a = Leaf' a | Node' (Tree' a) (Tree' a)
+    deriving Show
+
+-- Example of balanded tree
+tBalanced :: Tree' Int
+tBalanced = Node'
+                (Node'
+                     (Leaf' 1) (Leaf' 2)) 
+                (Leaf' 3)
+
+tUnbalanced :: Tree' Int
+tUnbalanced = Node'
+                  (Node' 
+                       (Node' 
+                            (Leaf' 1) (Leaf' 2))
+                       (Leaf' 3)) 
+                  (Leaf' 4)
+
+leaves :: Tree' a -> Int
+leaves (Leaf' _)   = 1
+leaves (Node' l r) = leaves l + leaves r
+
+balanced :: Tree' a -> Bool
+balanced (Leaf' _)   = True
+balanced (Node' l r) = abs (leaves l - leaves r) <= 1 
+                       && balanced l && balanced r 
+    
+
+
