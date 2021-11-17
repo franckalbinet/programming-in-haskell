@@ -281,6 +281,15 @@ balanced :: Tree' a -> Bool
 balanced (Leaf' _)   = True
 balanced (Node' l r) = abs (leaves l - leaves r) <= 1 
                        && balanced l && balanced r 
+
+-- Exercise 4
+halve :: [a] -> ([a],[a]) 
+halve xs = splitAt (length xs `div` 2) xs
+
+balance :: [a] -> Tree' a
+balance [x] = Leaf' x
+balance xs = Node' (balance left) (balance right)
+    where (left,right) = halve xs
     
 
 
