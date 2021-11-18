@@ -290,6 +290,21 @@ balance :: [a] -> Tree' a
 balance [x] = Leaf' x
 balance xs = Node' (balance left) (balance right)
     where (left,right) = halve xs
-    
 
+-- Exercise 5
+data Expr' = Val' Int | Add' Expr' Expr'
+    deriving Show
+
+folde :: (Int -> a) -> (a -> a -> a) -> Expr' -> a
+folde f _ (Val' n) = f n
+folde f g (Add' x y) = g (folde f g x) (folde f g y)
+
+-- Test 
+f :: Int -> Int
+f n = n
+
+g :: Int -> Int -> Int
+g n m = n + m
+
+expr = Add' (Add' (Val' 1) (Val' 2)) (Val' 3)
 
