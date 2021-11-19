@@ -308,3 +308,17 @@ g n m = n + m
 
 expr = Add' (Add' (Val' 1) (Val' 2)) (Val' 3)
 
+-- Exercise 6
+-- For instance
+evalEx :: Expr' -> Int
+evalEx = folde (\x -> x) (\x y -> x + y)
+
+size :: Expr' -> Int
+size = folde (\x -> 1) (\x y -> x + y)
+
+-- Exercise 7
+
+
+
+
+
