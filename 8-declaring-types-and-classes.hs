@@ -327,5 +327,7 @@ instance Eq a => Eq (Maybe' a) where
 --   [] == []         = True
 --    (x:xs) == (y:ys) = (x == y) && (xs) == (ys)
 
+-- Exercise 8 and 9 (TBD)
+
 
 
