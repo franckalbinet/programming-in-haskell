@@ -27,8 +27,9 @@ instance Show Expr where
     show (App o l r) = brak l ++ show o ++ brak r
                        where
                            brak (Val n) = show n
-                           brak e       = "(" ++ show e++ ")"
+                           brak e       = "(" ++ show e ++ ")"
 
+-- List of values in an expression
 values :: Expr -> [Int]
 values (Val n)     = [n]
 values (App _ l r) = values l ++ values r
@@ -40,7 +41,8 @@ eval (App o l r) = [apply o x y | x <- eval l,
                                   valid o x y]
 
 -- 9.4 Combinatorial functions
-
+-- All subsequences of a list
+subs :: [a] -> [[a]]
 
 
 
