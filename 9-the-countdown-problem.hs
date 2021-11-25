@@ -43,6 +43,8 @@ eval (App o l r) = [apply o x y | x <- eval l,
 -- 9.4 Combinatorial functions
 -- All subsequences of a list
 subs :: [a] -> [[a]]
-
+subs []     = [[]]
+subs (x:xs) = yss ++ map (x:) yss 
+    where yss = subs xs
 
 
