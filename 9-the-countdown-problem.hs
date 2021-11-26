@@ -47,4 +47,8 @@ subs []     = [[]]
 subs (x:xs) = yss ++ map (x:) yss 
     where yss = subs xs
 
+-- All possible ways to insert a new element in a list
+interleave :: a -> [a] -> [[a]]
+interleave x []     = [[x]]
+interleave x (y:ys) = [x:(y:ys)] ++ map (y:) (interleave x ys)
 
