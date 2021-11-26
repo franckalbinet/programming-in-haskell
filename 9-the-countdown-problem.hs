@@ -52,3 +52,8 @@ interleave :: a -> [a] -> [[a]]
 interleave x []     = [[x]]
 interleave x (y:ys) = [x:(y:ys)] ++ map (y:) (interleave x ys)
 
+-- Returns all permutations of a list
+perms :: [a] -> [[a]]
+perms []     = [[]]
+perms (x:xs) = concat (map (interleave x) (perms xs))
+
