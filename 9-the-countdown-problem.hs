@@ -57,3 +57,14 @@ perms :: [a] -> [[a]]
 perms []     = [[]]
 perms (x:xs) = concat (map (interleave x) (perms xs))
 
+-- All possible ways to select 0 or more elements
+choices :: [a] -> [[a]]
+choices = concat . map perms . subs
+
+-- 9.5 Formalising the problem
+solution :: Expr -> [Int] -> Int -> Bool
+solution e ns n =
+    elem (values e) (choices ns) && eval e == [n]
+
+-- Expression to test with target 765 and ns=[1,3,7,10,25,50]
+expr_t = App Mul (App Add (Val 1) (Val 50)) (App Sub (Val 25) (Val 10))
