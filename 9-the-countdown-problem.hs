@@ -68,3 +68,12 @@ solution e ns n =
 
 -- Expression to test with target 765 and ns=[1,3,7,10,25,50]
 expr_t = App Mul (App Add (Val 1) (Val 50)) (App Sub (Val 25) (Val 10))
+
+-- 9.6 Brute force solution
+split :: [a] -> [([a],[a])]
+split []     = []
+split [_]    = []
+split (x:xs) = ([x],xs) : [(x:ls,rs) | (ls,rs) <- split xs]
+
+
+
