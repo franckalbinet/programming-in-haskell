@@ -72,6 +72,17 @@ choices xs = [zs | ys <- subs xs, zs <- perms ys]
 
 -- Solution exercise 2
 -- Check if same list whatever (regardless permutation)
+removeone :: Eq a => a -> [a] -> [a]
+removeone _ []     = []
+removeone x (y:ys) 
+      | x == y    = ys
+      | otherwise = [y] ++ removeone x ys
+
+isChoice :: Eq a => [a] -> [a] -> Bool
+isChoice [] _      = True
+isChoice (x:xs) [] = False
+isChoice (x:xs) ys = elem x ys &&
+                     isChoice xs (removeone x ys)
 
 -- 9.5 Formalising the problem
 solution :: Expr -> [Int] -> Int -> Bool
