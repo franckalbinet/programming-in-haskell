@@ -143,3 +143,11 @@ valid Add x y = x <= y
 valid Sub x y = x > y
 valid Mul x y = x /= 1 && y /= 1 && x <= y
 valid Div x y = y /= 1 && x `mod` y == 0
+
+-- Exercise 4
+-- Number of possible expressions
+-- length (concat (map exprs (choices [1,3,7,10,25,50])))
+
+-- Number of expressions that evaluate successfully
+-- TO BE FIXED
+-- length (concat (map eval (concat (map exprs (choices [1,3,7,10,25,50])))))
